@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title> 学习 TypeScript 的日子里 </title>
+
+    <link rel="icon" href="/apple-touch-icon-60x60.png">
+    <style>
+        li {
+            list-style: none
+        }
+
+        #webpack-dev-server-client-overlay-div {
+            position: fixed;
+            box-sizing: border-box;
+            left: 0px;
+            top: 0px;
+            right: 0px;
+            bottom: 0px;
+            width: 100vw;
+            height: 100vh;
+            background-color: rgba(0, 0, 0, 0.8);
+            color: rgb(232, 232, 232);
+            font-family: Menlo, Consolas, monospace;
+            font-size: large;
+            padding: 2rem;
+            line-height: 1.2;
+            white-space: pre-wrap;
+            overflow: auto;
+        }
+    </style>
+</head>
+<body>
+<div id="root"></div>
+<div id="modal-root"></div>
+</body>
+</html>
+<script>
+
+  window.addEventListener('message', e => {
+
+    if (e.data.type === 'webpackErrors') {
+
+      var htmlStr = '<div id="webpack-dev-server-client-overlay-div"><h2 style="color: #E36049">Failed to compile.</h2>'
+      e.data.data.forEach(
+        item => {
+          htmlStr += '<ul style="white-space: pre-wrap">';
+          item.split(/\n|\r\n/g).forEach(
+            errorStr => {
+              htmlStr += '<li>'
+              errorStr.split(/\\r\\n|\r\n/g).forEach(
+                text => {
+
+                  htmlStr += '<div>' + text + '</div>'
+                }
+              )
+              htmlStr += '</li>'
+            }
+          )
+          htmlStr += '</ul>'
+        }
+      )
+      htmlStr += '</div>'
+      document.getElementById('modal-root').innerHTML = htmlStr
+    }});
+
+
+</script>

@@ -1,0 +1,160 @@
+{
+    //  "compileOnSave": false,
+    "compilerOptions": {
+        "baseUrl": "./",
+        "target": "es5",
+        "allowJs": false,
+        "jsx": "preserve",
+        "moduleResolution": "node",
+        "forceConsistentCasingInFileNames": true,
+        "noImplicitReturns": true,
+        "noImplicitThis": true,
+        "noImplicitAny": false,
+        "importHelpers": true,
+        "strictNullChecks": true,
+        "experimentalDecorators": true,
+        "esModuleInterop": true,
+        "sourceMap": true,
+        "suppressImplicitAnyIndexErrors": true,
+        "downlevelIteration": true,
+        "resolveJsonModule": true,
+        //    "typeRoots" : ["./typings"],
+        //    "types" : [],
+        "lib": [
+            "dom",
+            "es2015",
+            "es2016",
+            "es2017",
+            "ESNext"
+        ],
+        "paths": {
+            "@/*": [
+                "src/*"
+            ],
+            "view/*": [
+                "./src/view/*"
+            ],
+             "pages/*": [
+                "./src/view/pages/*"
+            ],
+            "router/*": [
+                "./src/router/*"
+            ],
+            "JS/*": [
+                "./src/assets/javascript/*"
+            ],
+            "CSS/*": [
+                "./src/assets/css/*"
+            ],
+            "stories/*": [
+                "./src/stories"
+            ],
+            "IMG/*": [
+                "./src/assets/images/*"
+            ],
+            "components/*": [
+                "./src/components/*"
+            ],
+            "store/*": [
+                "./src/store/*"
+            ],
+            "HOC/*": [
+                "./src/HOC/*"
+            ]
+        }
+    },
+    "include": [
+        "src/**/*"
+    ]
+}
+
+//{
+//  "compileOnSave": false,
+//  "compilerOptions": {
+//    "baseUrl": "./",
+//    "allowJs": true,
+//    "noImplicitAny": true,
+//    "removeComments": true,
+//    "preserveConstEnums": true,
+//    "downlevelIteration": true,
+//    "jsx": "preserve", // FF
+//    "module": "ESNext",
+//    "target": "es5",
+//    "allowSyntheticDefaultImports": true,
+//    "sourceMap": true,
+//    "moduleResolution": "node",
+//    "rootDir": "/",
+//    "lib": ["dom", "es2015", "es2016", "es2017", "ESNext"],
+//    "experimentalDecorators": true,
+//    "noEmitOnError": true,
+//    "noImplicitThis": true,
+//    "skipLibCheck": true,
+//    "suppressImplicitAnyIndexErrors": true,
+//    "declaration": true
+//  },
+//  "include": [
+//    "src"
+//  ],
+//  "exclude": [
+//    "node_modules",
+//    "**/*.spec.ts"
+//  ],
+//  "types": [  //要包含的类型声明文件名列表；如果指定了types，只有被列出来的包才会被包含进来
+//    "hammerjs",
+//    "node",
+//    "source-map",
+//    "uglify-js",
+//    "webpack"
+//  ],
+//  "paths": {
+//
+//    "@/*": [
+//      "src/*"
+//    ],
+//    "view/*": [
+//      "./src/view/*"
+//    ],
+//    "router/*": [
+//      "./src/router/*"
+//    ],
+//    "JS/*": [
+//      "./src/assets/javascript/*"
+//    ],
+//    "CSS/*": [
+//      "./src/assets/css/*"
+//    ],
+//    "stories/*": [
+//      "./src/stories"
+//    ],
+//    "IMG/*": [
+//      "./src/assets/images/*"
+//    ],
+//    "components/*": [
+//      "./src/components/*"
+//    ],
+//    "store/*": [
+//      "./src/store/*"
+//    ],
+//    "HOC/*": [
+//      "./src/HOC/*"
+//    ]
+//  }
+//}
+
+
+//}
+//CSS: path.resolve( __dirname, 'src/assets/css' ),
+//IMG: path.resolve( __dirname, 'src/assets/images' ),
+//JS: path.resolve( __dirname, 'src/assets/javascript' ),
+//view: path.resolve( __dirname, 'src/view' ),
+//components: path.resolve( __dirname, 'src/components' ),
+//router: path.resolve( __dirname, 'src/router' ),
+//store: path.resolve( __dirname, 'src/store' ),
+//assets: path.resolve( __dirname, 'src/assets' ),
+//HOC: path.resolve( __dirname, 'src/components/HOC' ),
+
+
+
+
+
+
