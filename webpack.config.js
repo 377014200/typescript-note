@@ -83,6 +83,34 @@ module.exports = {
             use: ['style-loader', 'css-loader', 'scoped-css-loader']
 
          },
+          // less
+          {
+              test: /\.less$/,
+              loaders : [
+                  {
+                      loader: 'css-loader',
+                      options: {
+                          sourceMap: false,
+                          importLoaders: 2,
+                          modules: true,
+                      }
+                  },
+                  /* config.module.rule('less').oneOf('vue-modules').use('postcss-loader') */
+                  {
+                      loader: 'postcss-loader',
+                      options: {
+                          sourceMap: false
+                      }
+                  },
+                  /* config.module.rule('less').oneOf('vue-modules').use('less-loader') */
+                  {
+                      loader: 'less-loader',
+                      options: {
+                          sourceMap: false
+                      }
+                  }
+              ]
+          },
          {
             test: /\.(svg)(\?.*)?$/,
             use: [
