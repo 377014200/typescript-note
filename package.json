@@ -12,10 +12,6 @@
     "keywords": [],
     "author": "",
     "license": "ISC",
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/377014200/typescript-note/tree/development"
-    },
     "devDependencies": {
         "@babel/core": "^7.5.5",
         "@babel/plugin-proposal-class-properties": "^7.5.5",
