@@ -41,7 +41,7 @@ module.exports = {
         "parser": 'babel-eslint',
         'ecmaVersion' : 6,
         'sourceType' : 'module',
-        "project" : "./tsconfig.json"
+        // "project" : "./tsconfig.json"
     },
     'plugins' : [
         'react',
