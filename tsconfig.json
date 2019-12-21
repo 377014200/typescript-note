@@ -56,8 +56,8 @@
             "components/*": [
                 "./src/components/*"
             ],
-            "store/*": [
-                "./src/store/*"
+            "types/*": [
+                "./src/types/*"
             ],
             "HOC/*": [
                 "./src/HOC/*"

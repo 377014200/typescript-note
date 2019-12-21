@@ -1,6 +1,6 @@
 import { Component } from 'react';
 import { BrowserRouter, Prompt } from 'react-router-dom';
-import '@/config/rhlConfig';
+// import '@/config/rhlConfig';
 
 import Router from 'view/router/Router';
 import Sidebar from 'view/pages/sidebar/Sidebar';
@@ -20,7 +20,7 @@ export default class App extends Component {
    render() {
       return (
          <div className='container'>
-            <h1> Hello Type Script</h1>
+            <h1> Hello ReactScript</h1>
             <h2>小生,我怕怕</h2>
             <BrowserRouter getUserConfirmation={ setConfirmation }>
                <Prompt message={ 'Are you sure to leave' } when />

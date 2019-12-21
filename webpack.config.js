@@ -4,6 +4,7 @@ const HtmlWebpackPlugin = require( 'html-webpack-plugin' );
 const { CleanWebpackPlugin } = require( 'clean-webpack-plugin' );
 const MyWebpackPlugin = require( './bundle/plugin/MyWebpackPlugin' );
 const webpack = require( 'webpack' );
+var ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const devMode = true;
 
 function customErrorFormatter( error, colors ) {
@@ -19,7 +20,7 @@ module.exports = {
    mode: 'development',
 
    entry: {
-      app: ['react-hot-loader/patch', path.join( __dirname, './src' )] // app.js作为打包的入口
+      app: [path.join( __dirname, './src' )] // app.js作为打包的入口
       // app: './src'
    },
    // 输出目录
@@ -51,25 +52,33 @@ module.exports = {
       rules: [
       // js
          {
-            test: /.js(x)?$/,
-            include: /node_madules[\\/]react-syntax-highlighter|src|node_madules[\\/]react-syntax-highlighter/,
-            loader: 'babel-loader'
-         },
-         // all files with a `.ts` or `.tsx` extension will be handled by `ts-loader`
-         {
-            test: /(\.d)?\.ts(x)?$/,
+            test: /\.(j|t)sx?$/,
             exclude: /node_modules/,
-            use: [
-               'babel-loader',
-               {
-                  loader: 'ts-loader',
-                  options: {
-                     errorFormatter: customErrorFormatter,
-                     ignoreDiagnostics: [] // 忽略某些错误描述
-                  }
-               }
-            ]
+            loader: 'babel-loader',
+            options: {
+               // This is a feature of `babel-loader` for webpack (not Babel itself).
+               // It enables caching results in ./node_modules/.cache/babel-loader/
+               // directory for faster rebuilds.
+               cacheDirectory: true,
+            },
          },
+         // // all files with a `.ts` or `.tsx` extension will be handled by `ts-loader`
+         // {
+         //    test: /\.tsx?$/,
+         //    // exclude: /node_modules/,
+         //    use: [
+         //       'babel-loader',
+         //       {
+         //          loader: 'ts-loader',
+         //          options: {
+         //             // configFile: path.resolve( __dirname, './tsconfig.json' ),
+         //             errorFormatter: customErrorFormatter,
+         //             ignoreDiagnostics: [], // 忽略某些错误描述
+         //             allowTsInNodeModules: true
+         //          }
+         //       }
+         //    ]
+         // },
          { // 所有输出”.js'的文件将有任何源代码重新处理的源代码地图加载器'。
             enforce: 'pre',
             test: /\.js$/,
@@ -77,40 +86,35 @@ module.exports = {
          },
          // css
          {
-            test: /.css$/,
+            test: /\.css$/,
             // "scoped-css-loader" 然 react 也可已使用 scoped 的样式 :
             // 地址: http://npm.taobao.org/package/scoped-css-loader
             use: ['style-loader', 'css-loader', 'scoped-css-loader']
 
          },
-          // less
-          {
-              test: /\.less$/,
-              loaders : [
-                  {
-                      loader: 'css-loader',
-                      options: {
-                          sourceMap: false,
-                          importLoaders: 2,
-                          modules: true,
-                      }
-                  },
-                  /* config.module.rule('less').oneOf('vue-modules').use('postcss-loader') */
-                  {
-                      loader: 'postcss-loader',
-                      options: {
-                          sourceMap: false
-                      }
-                  },
-                  /* config.module.rule('less').oneOf('vue-modules').use('less-loader') */
-                  {
-                      loader: 'less-loader',
-                      options: {
-                          sourceMap: false
-                      }
+         // less
+         {
+            test: /\.less$/,
+            use: [
+               {
+                  loader: 'style-loader', // creates style nodes from JS strings
+               },
+               {
+                  loader: 'css-loader', // translates CSS into CommonJS
+                  options: {
+                     sourceMap: true,
                   }
-              ]
-          },
+               },
+               {
+                  loader: 'less-loader', // compiles Less to CSS
+                  options: {
+                     javascriptEnabled: true, // 此选项开启是为了防止 antd 报错! 参考 https://github.com/ant-design/ant-motion/issues/44
+                     // paths: [path.resolve( __dirname, 'node_modules' )],
+                     sourceMap: true,
+                  }
+               },
+            ],
+         },
          {
             test: /\.(svg)(\?.*)?$/,
             use: [
@@ -151,12 +155,19 @@ module.exports = {
 
       } ),
       new MyWebpackPlugin(),
+      new ForkTsCheckerWebpackPlugin()
    ],
 
    resolve: {
-      aliasFields: ['browser'],
+      // 解析模块请求的选项
+      // （不适用于对 loader 解析）
+      modules: [
+         'node_modules',
+         path.resolve( 'src' )
+      ],
+      // aliasFields: ['browser'],
       // 尝试按顺序解析这些扩展。
-      extensions: ['.d.ts', '.ts', '.tsx', '.jsx', '.js', '.json'],
+      extensions: ['.js', 'jsx', '.ts', '.tsx'],
       alias: {
          '@': path.resolve( __dirname, 'src' ),
          'CSS': path.resolve( __dirname, 'src/assets/css' ),
@@ -170,6 +181,7 @@ module.exports = {
          'HOC': path.resolve( __dirname, 'src/components/HOC' ),
          'config': path.resolve( __dirname, 'src/config' ),
          'pages': path.resolve( __dirname, 'src/view/pages' ),
+         'types': path.resolve( __dirname, 'src/types' ),
          'react-hot-loader': path.resolve( path.join( __dirname, './node_modules/react-hot-loader' ) ),
          // add these 2 lines below so linked package will reference the patched version of `react` and `react-dom`
          'react': path.resolve( path.join( __dirname, './node_modules/react' ) ),

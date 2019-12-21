@@ -1,12 +1,6 @@
 module.exports = {
-  "presets": ["@babel/preset-react"],
+  "presets": ["@babel/preset-react","@babel/preset-typescript"],
   "plugins": [
-      ["import", {
-          "libraryName": "antd",
-          "libraryDirectory": "es",
-          "style": true   // `style: true` 会加载 less 文件
-      }
-      ],
     "babel-plugin-react-scoped-css",
     "@babel/plugin-syntax-dynamic-import",
     [
@@ -20,6 +14,11 @@ module.exports = {
       }
     ],
     "react-hot-loader/babel",
-
+     ["import",   {
+        "libraryName": "antd",
+        "libraryDirectory": "es",
+        "style": true   // `style: true` 会加载 less 文件
+         }
+     ],
   ]
 };
