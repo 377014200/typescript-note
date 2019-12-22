@@ -9,6 +9,7 @@ export default class Sidebar extends Component {
          <div className='sidebar'>
             <ul>
                <li><NavLink exact to='/' activeClassName='route-active' > 关键字 </NavLink></li>
+               <li><NavLink exact to='/test' activeClassName='route-active' > test </NavLink></li>
             </ul>
          </div>
       );

@@ -4,7 +4,7 @@ const HtmlWebpackPlugin = require( 'html-webpack-plugin' );
 const { CleanWebpackPlugin } = require( 'clean-webpack-plugin' );
 const MyWebpackPlugin = require( './bundle/plugin/MyWebpackPlugin' );
 const webpack = require( 'webpack' );
-var ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
+var ForkTsCheckerWebpackPlugin = require( 'fork-ts-checker-webpack-plugin' );
 const devMode = true;
 
 function customErrorFormatter( error, colors ) {
@@ -54,31 +54,16 @@ module.exports = {
          {
             test: /\.(j|t)sx?$/,
             exclude: /node_modules/,
-            loader: 'babel-loader',
-            options: {
-               // This is a feature of `babel-loader` for webpack (not Babel itself).
-               // It enables caching results in ./node_modules/.cache/babel-loader/
-               // directory for faster rebuilds.
-               cacheDirectory: true,
-            },
+            use: [
+               'cache-loader',
+               {
+                  loader: 'babel-loader',
+                  options: {
+                     cacheDirectory: true,
+                  }
+               }
+            ],
          },
-         // // all files with a `.ts` or `.tsx` extension will be handled by `ts-loader`
-         // {
-         //    test: /\.tsx?$/,
-         //    // exclude: /node_modules/,
-         //    use: [
-         //       'babel-loader',
-         //       {
-         //          loader: 'ts-loader',
-         //          options: {
-         //             // configFile: path.resolve( __dirname, './tsconfig.json' ),
-         //             errorFormatter: customErrorFormatter,
-         //             ignoreDiagnostics: [], // 忽略某些错误描述
-         //             allowTsInNodeModules: true
-         //          }
-         //       }
-         //    ]
-         // },
          { // 所有输出”.js'的文件将有任何源代码重新处理的源代码地图加载器'。
             enforce: 'pre',
             test: /\.js$/,
@@ -182,16 +167,19 @@ module.exports = {
          'config': path.resolve( __dirname, 'src/config' ),
          'pages': path.resolve( __dirname, 'src/view/pages' ),
          'types': path.resolve( __dirname, 'src/types' ),
-         'react-hot-loader': path.resolve( path.join( __dirname, './node_modules/react-hot-loader' ) ),
-         // add these 2 lines below so linked package will reference the patched version of `react` and `react-dom`
-         'react': path.resolve( path.join( __dirname, './node_modules/react' ) ),
-         'react-dom': path.resolve( path.join( __dirname, './node_modules/react-dom' ) ),
+         // 'react-hot-loader': path.resolve( path.join( __dirname, './node_modules/react-hot-loader' ) ),
+         // // add these 2 lines below so linked package will reference the patched version of `react` and `react-dom`
+         // 'react': path.resolve( path.join( __dirname, './node_modules/react' ) ),
+         // 'react-dom': path.resolve( path.join( __dirname, './node_modules/react-dom' ) ),
       // or point react-dom above to './node_modules/@hot-loader/react-dom' if you are using it
-      }
+      },
+
    },
    // externals: {
    //    react: { root: 'React' },
    //    'react-dom' :{ root: 'ReactDOM' }
    // }
-
+   optimization: {
+      runtimeChunk: 'single',
+   }
 };

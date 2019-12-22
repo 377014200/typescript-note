@@ -1,6 +1,24 @@
 module.exports = {
-  "presets": ["@babel/preset-react","@babel/preset-typescript"],
+  "presets": [
+     [
+        "@babel/preset-env",
+        {
+           "useBuiltIns": "usage",
+           "targets": "> 0.25%, last 2 versions, not ie <= 9",
+           "corejs": 2
+        }
+     ],
+     "@babel/preset-react",
+     "@babel/preset-typescript"
+  ],
   "plugins": [
+     [
+        "@babel/plugin-transform-runtime",
+        {
+           "corejs": 2,
+           "regenerator": true
+        }
+     ],
     "babel-plugin-react-scoped-css",
     "@babel/plugin-syntax-dynamic-import",
     [
@@ -13,7 +31,6 @@ module.exports = {
          "loose": true
       }
     ],
-    "react-hot-loader/babel",
      ["import",   {
         "libraryName": "antd",
         "libraryDirectory": "es",
