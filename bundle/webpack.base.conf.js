@@ -2,7 +2,6 @@ const path = require( 'path' );
 const webpack = require( 'webpack' );
 const merge = require( 'webpack-merge' );
 const { resolve } = require( './utils' );
-const manifest = require( '../react-manifest.json' );
 
 module.exports = function ( NODE_ENV ) {
    const env_dev = require( '../config/dev.js' );
