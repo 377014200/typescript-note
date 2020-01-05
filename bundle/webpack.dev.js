@@ -1,6 +1,6 @@
 process.env.NODE_ENV = 'development';
 const merge = require( 'webpack-merge' );
-const webpackBaseConfig = require( './webpack.base.conf' );
+const webpackBaseConfig = require( './webpack.base' );
 const HtmlWebpackPlugin = require( 'html-webpack-plugin' );
 const ForkTsCheckerWebpackPlugin = require( 'fork-ts-checker-webpack-plugin' );
 const MyWebpackPlugin = require( './plugin/MyWebpackPlugin' );
@@ -14,7 +14,7 @@ const developmentConfig = {
    output: {
       filename: 'static/javascript/[name].js',
       path: resolve( path ),
-      publicPath: publicPath,
+      publicPath,
       chunkFilename: 'static/javascript/[name].bundle.js',
    },
    devtool: 'cheap-module-eval-source-map',

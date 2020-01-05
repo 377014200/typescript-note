@@ -6,7 +6,7 @@ const { resolve } = require( './utils' );
 module.exports = function ( NODE_ENV ) {
    const env_dev = require( '../config/dev.js' );
    const env_prod = require( '../config/prod.js' );
-   const module = require( './webpack.loader.conf' );
+   const module = require( './webpack.loader' );
    const devMode = NODE_ENV === 'development';
 
    console.log( devMode );

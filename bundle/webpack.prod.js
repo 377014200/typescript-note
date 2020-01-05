@@ -1,6 +1,6 @@
 process.env.NODE_ENV = 'production';
 const merge = require( 'webpack-merge' );
-const webpackBaseConfig = require( './webpack.base.conf' );
+const webpackBaseConfig = require( './webpack.base' );
 const { CleanWebpackPlugin } = require( 'clean-webpack-plugin' );
 const CopyPlugin = require( 'copy-webpack-plugin' );
 const webpack = require( 'webpack' );

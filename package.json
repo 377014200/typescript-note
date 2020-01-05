@@ -6,13 +6,11 @@
         "*.css"
     ],
     "scripts": {
-        "bundle": "webpack --config bundle/webpack.prod.conf.js",
-        "start": "webpack-dev-server --config webpack.config.js",
+        "bundle": "webpack --config bundle/webpack.prod.js",
         "test": "webpack-dev-server --config webpack.test.js",
         "eslint": "eslint --fix src --ext .ts,.tsx",
-        "dev": "webpack-dev-server --config bundle/webpack.dev.conf.js",
-        "server": "serve -s dist",
-        "dll": "webpack --config bundle/webpack.dll.js"
+        "dev": "webpack-dev-server --config bundle/webpack.dev.js",
+        "server": "serve -s dist"
     },
     "keywords": [],
     "author": "",
