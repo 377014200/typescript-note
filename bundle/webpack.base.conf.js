@@ -12,10 +12,7 @@ module.exports = function ( NODE_ENV ) {
    console.log( devMode );
    const webpackBaseConfig = {
       context: resolve( './' ),
-
-      entry: {
-         app: resolve( 'src/index.tsx' ),
-      },
+      entry: resolve( 'src/index.tsx' ),
       resolve: {
          // 尝试按顺序解析这些扩展。
          extensions: ['.js', 'jsx', '.ts', '.tsx'],
@@ -36,37 +33,72 @@ module.exports = function ( NODE_ENV ) {
          removeEmptyChunks: true,
          splitChunks: {
             chunks: 'all',
-            minSize: 102400,
-            // name: "aaa",
+            minSize: 1024,
             minChunks: 2,
             cacheGroups: {
-               react: {
-                  name: 'react',
-                  test: /[\\/]node_modules[\\/](react|react-dom)[\\/]/,
-                  filename: `static/vendors/react/[name]${ devMode ? '' : '.[chunkhash]' }.js`,
+               react: { // 使用了 filename 就不会走 output.chunkFilename;
+                  name: '../vendors/react/react',
+                  test: /[\\/]node_modules[\\/](react|react-dom|react-router-dom|react-redux|redux-logger|react-is|prop-types|mini-create-react-context|react-lifecycles-compat)[\\/]/,
+                  // filename: `static/vendors/react/[name]${ devMode ? '' : '.[chunkhash]' }.js`,
                   priority: 10,
                   enforce: true,
                },
-               antdAsync: {
+               tool: { // 使用了 filename 就不会走 output.chunkFilename;
+                  name: '../vendors/tool',
+                  test: /[\\/]node_modules[\\/].*\.js$/,
+                  priority: 10,
+                  // enforce: true,
+               },
+               antdJs: { // antd 是按需加载的, 不能用 filename; 下面的 antdCss 也是一样
+                  // 这个 name 会走 output.chunkFilename
                   // eslint-disable-next-line no-shadow
-                  name( module, chunks, cacheGroupKey ) { // module.[resource:request:userRequest:rawRequest:]
-                     let filename;
+                  name( module ) { // module.[resource:request:userRequest:rawRequest:]
                      const resource = String( module.resource || '' ).split( 'node_modules' )[1];
-                     const reg = /@ant-design/;
-
-                     // eslint-disable-next-line prefer-const
-                     filename = reg.test( resource ) ? '@ant-design/@ant-design' : 'antd/antd';
-                     return 'vendors/' + filename;
+                     const filename = /@ant-design/.test( resource ) ? '@ant-design/@ant-design' : 'antd/antd';
+                     // console.log( '[ init ] : in webpack.base.conf.js > 3', module.resource );
+                     return '../vendors/' + filename;
                   },
-                  test: /[\\/]node_modules[\\/](antd|@ant-design)[\\/]/,
-                  // filename: `static/vendors/antd/[name]${ devMode ? '' : '.[chunkhash]' }.js`,
+                  test: /[\\/]node_modules[\\/](antd|@ant-design)[\\/].*\.js$/,
                   priority: 10,
                   enforce: true,
-                  chunks: 'all'
                },
-               default: {
-                  name: 'javascript/common',
-               }
+               antdCss: {
+                  // 这个 name 走的是 mini-css-extract-plugin 的 chunkFilename;
+                  name: function ( m ) {
+                     // 这返回值看起来很奇怪这是怪不得已!
+                     // console.log( "[ init ] : in webpack.base.conf.js > 1", String(  m.resource )  )
+                     return '../vendors/antd/style/index';
+                  },
+                  test: /[\\/]node_modules[\\/]antd[\\/].*\.(le|c)ss$/,
+                  enforce: true,
+                  priority: 10,
+               },
+               // test: {
+               //    name( m ) {
+               //       console.log( '[ init ] : in webpack.base.conf.js > 1', m.resource );
+               //       return 'aaa';
+               //    },
+               //    // enforce: true,
+               //    priority: 5,
+               //    test: /[\\/]node_modules[\\/].*\.js$/,
+               // },
+               //
+               // defaultJs: {
+               //    name: 'javascript/common',
+               //    test: /\.js$/,
+               // },
+               // defaultCss: {
+               //    name( m ) {
+               //       if ( /n?ode_modules/.test( String( m.resource ) ) ) {
+               //          // console.log( "[ init ] : in webpack.base.conf.js > 2", m )
+               //          return 'aaa';
+               //       }
+               //       console.log( '[ init ] : in webpack.base.conf.js > 2', m.resource );
+               //       return 'css/common';
+               //    },
+               //    test: /[\\/]src[\\/].*\.(le|c)ss$/,
+               // },
+
             }
          }
       },
@@ -94,21 +126,21 @@ module.exports = function ( NODE_ENV ) {
          }
       }, // performance end
       // 这是和控制台输出的信息有关的信息
-      stats: {
-         // 这个属性暂时没用
-         colors: {
-            green: '\u001b[32m',
-         },
-         // 增加 child 的信息(false== 关闭)
-         children: false,
-         // 添加构建模块信息(false== 关闭)
-         modules: false,
-         // 显示警告/错误的依赖关系和来源(自webpack 2.5.0起)
-         moduleTrace: true,
-         cached: false,
-         // 显示缓存的资产(将此设置为“false”只显示已发出的文件)
-         cachedAssets: false,
-      }
+      // stats: {
+      //    // 这个属性暂时没用
+      //    colors: {
+      //       green: '\u001b[32m',
+      //    },
+      //    // 增加 child 的信息(false== 关闭)
+      //    children: false,
+      //    // 添加构建模块信息(false== 关闭)
+      //    modules: false,
+      //    // 显示警告/错误的依赖关系和来源(自webpack 2.5.0起)
+      //    moduleTrace: true,
+      //    cached: false,
+      //    // 显示缓存的资产(将此设置为“false”只显示已发出的文件)
+      //    cachedAssets: false,
+      // }
 
    };
    return merge( webpackBaseConfig, module( NODE_ENV ) );

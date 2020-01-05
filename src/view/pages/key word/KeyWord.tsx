@@ -1,4 +1,3 @@
-import antdLazy from '@/view/utils';
 import React, { lazy } from 'react';
 import { Table } from 'antd';
 

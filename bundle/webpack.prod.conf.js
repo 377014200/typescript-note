@@ -10,7 +10,7 @@ const OptimizeCssAssetsPlugin = require( 'optimize-css-assets-webpack-plugin' );
 
 const { resolve } = require( './utils' );
 const ENV_CONFIG = require( '../config' )( process.env.NODE_ENV );
-
+const devMode = process.env.NODE_ENV !== 'production';
 const { publicPath, path } = ENV_CONFIG.output;
 const productionConfig = {
 
@@ -18,8 +18,8 @@ const productionConfig = {
    output: {
       filename: 'static/javascript/[name].[hash].js',
       path: resolve( path ),
-      publicPath: publicPath,
-      chunkFilename: 'static/[name].[chunkhash].js',
+      publicPath,
+      chunkFilename: 'static/javascript/[name].[chunkhash].js',
       // webpack能够在输出包中生成路径信息。
       // 然而，这给打包了数千个模块的项目带来了垃圾收集的压力。
       // 在options.output中关闭此选项。

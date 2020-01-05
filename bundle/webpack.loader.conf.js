@@ -32,7 +32,18 @@ const loaderConfig = function ( NODE_ENV ) {
                test: /\.css$/,
                // "scoped-css-loader" 然 react 也可已使用 scoped 的样式 :
                // 地址: http://npm.taobao.org/package/scoped-css-loader
-               use: [devMode ? "style-loader" : MiniCssExtractPlugin.loader, 'css-loader', 'scoped-css-loader']
+               use: [
+                  {
+                     loader: MiniCssExtractPlugin.loader, // creates style nodes from JS strings
+                     options: {
+                        hmr: devMode,
+                        // if hmr does not work, this is a forceful method.
+                        reloadAll: true,
+                     }
+                  },
+                  'css-loader',
+                  'scoped-css-loader'
+               ]
 
             },
             // less
@@ -40,12 +51,18 @@ const loaderConfig = function ( NODE_ENV ) {
                test: /\.less$/,
                use: [
                   {
-                     loader: devMode ? "style-loader" : MiniCssExtractPlugin.loader, // creates style nodes from JS strings
+                     loader: MiniCssExtractPlugin.loader, // creates style nodes from JS strings
+                     // options: {
+                     //    hmr: devMode,
+                     //    // if hmr does not work, this is a forceful method.
+                     //    reloadAll: true,
+                     // }
                   },
                   {
                      loader: 'css-loader', // translates CSS into CommonJS
                      options: {
                         sourceMap: true,
+                        importLoaders: 2
                      }
                   },
                   {

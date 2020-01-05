@@ -1,7 +1,5 @@
 import { Component } from 'react';
 import { BrowserRouter, Prompt } from 'react-router-dom';
-// import '@/config/rhlConfig';
-// import antd from 'antd';
 import Router from '@/view/router/Router';
 import Sidebar from '@/view/pages/sidebar/Sidebar';
 import 'CSS/global.css';

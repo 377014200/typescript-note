@@ -2,7 +2,9 @@
     "name": "typescript-diary",
     "version": "1.0.0",
     "description": "",
-    "main": "index.js",
+    "sideEffects": [
+        "*.css"
+    ],
     "scripts": {
         "bundle": "webpack --config bundle/webpack.prod.conf.js",
         "start": "webpack-dev-server --config webpack.config.js",
