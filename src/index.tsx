@@ -1,3 +1,4 @@
+import "core-js/modules/es.promise";
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import store from '@/redux';
@@ -12,6 +13,7 @@ const render = function ( Component ) {
 
    ReactDOM.render( RootApp, document.getElementById( 'root' ) );
 };
+
 
 render( App );
 

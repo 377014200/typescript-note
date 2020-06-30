@@ -20,11 +20,7 @@ export default class App extends Component {
          <div className='container'>
             <h1> Hello ReactScript</h1>
             <h2>小生,我怕怕</h2>
-            <BrowserRouter getUserConfirmation={ setConfirmation }>
-               <Prompt message={ 'Are you sure to leave' } when />
-               <Sidebar />
-               <Router />
-            </BrowserRouter>
+
          </div>
       );
    }

@@ -6,7 +6,7 @@
         "*.css"
     ],
     "scripts": {
-        "bundle": "webpack --config bundle/webpack.prod.js",
+        "bundle": "webpack --config  bundle/webpack.prod.js",
         "test": "webpack-dev-server --config webpack.test.js",
         "eslint": "eslint --fix src --ext .ts,.tsx",
         "dev": "webpack-dev-server --config bundle/webpack.dev.js",
@@ -35,6 +35,7 @@
         "babel-plugin-react-scoped-css": "^0.4.0",
         "cache-loader": "^4.1.0",
         "clean-webpack-plugin": "^3.0.0",
+        "copy-webpack-plugin": "^5.1.1",
         "css-loader": "^3.2.0",
         "eslint": "^6.4.0",
         "eslint-config-google": "^0.14.0",
@@ -45,6 +46,7 @@
         "less": "^3.10.3",
         "less-loader": "^5.0.0",
         "mini-css-extract-plugin": "^0.8.2",
+        "optimize-css-assets-webpack-plugin": "^5.0.3",
         "postcss-loader": "^3.0.0",
         "prop-types": "^15.7.2",
         "react-hot-loader": "^4.12.14",
@@ -54,11 +56,10 @@
         "typescript": "^3.6.3",
         "url-loader": "^2.1.0",
         "webpack": "^4.41.2",
+        "webpack-bundle-analyzer": "^3.6.0",
         "webpack-cli": "^3.3.6",
         "webpack-dev-server": "^3.8.0",
-        "copy-webpack-plugin": "^5.1.1",
         "webpack-manifest-plugin": "^2.2.0",
-        "optimize-css-assets-webpack-plugin": "^5.0.3",
         "webpack-merge": "^4.2.2"
     },
     "dependencies": {
@@ -68,6 +69,7 @@
         "autoprefixer": "^9.7.3",
         "chalk": "^2.4.2",
         "react": "^16.9.0",
+        "react-app-polyfill": "^1.0.5",
         "react-dom": "^16.12.0",
         "react-redux": "^7.1.1",
         "react-router-dom": "^5.0.1",
@@ -76,5 +78,10 @@
         "redux-logger": "^3.0.6",
         "redux-thunk": "^2.3.0",
         "scoped-css-loader": "^0.4.0"
-    }
+    },
+    "browserslist": [
+        "> 1%",
+        "last 2 versions",
+        "not ie <= 8"
+    ]
 }

@@ -10,7 +10,6 @@ const loaderConfig = function ( NODE_ENV ) {
             // js
             {
                test: /\.(j|t)sx?$/,
-               exclude: /node_modules/,
                use: [
                   'cache-loader',
                   {

@@ -1,5 +1,6 @@
 const path = require( 'path' );
 const webpack = require( 'webpack' );
+const BundleAnalyzerPlugin = require( 'webpack-bundle-analyzer' ).BundleAnalyzerPlugin;
 const merge = require( 'webpack-merge' );
 const { resolve } = require( './utils' );
 
@@ -109,6 +110,7 @@ module.exports = function ( NODE_ENV ) {
             React: 'react',
             PropTypes: 'prop-types',
          } ),
+         // new BundleAnalyzerPlugin()
       ],
       /*
              这些选项可以控制 webpack 如何通知「资源(asset)和入口起点超过指定文件限制」。
@@ -126,22 +128,23 @@ module.exports = function ( NODE_ENV ) {
          }
       }, // performance end
       // 这是和控制台输出的信息有关的信息
-      // stats: {
-      //    // 这个属性暂时没用
-      //    colors: {
-      //       green: '\u001b[32m',
-      //    },
-      //    // 增加 child 的信息(false== 关闭)
-      //    children: false,
-      //    // 添加构建模块信息(false== 关闭)
-      //    modules: false,
-      //    // 显示警告/错误的依赖关系和来源(自webpack 2.5.0起)
-      //    moduleTrace: true,
-      //    cached: false,
-      //    // 显示缓存的资产(将此设置为“false”只显示已发出的文件)
-      //    cachedAssets: false,
-      // }
+      stats: {
+         // 这个属性暂时没用
+         colors: {
+            green: '\u001b[32m',
+         },
+         // 增加 child 的信息(false== 关闭)
+         children: true,
+         // 添加构建模块信息(false== 关闭)
+         modules: true,
+         // 显示警告/错误的依赖关系和来源(自webpack 2.5.0起)
+         moduleTrace: true,
+         cached: false,
+         // 显示缓存的资产(将此设置为“false”只显示已发出的文件)
+         cachedAssets: false,
+      }
 
    };
+
    return merge( webpackBaseConfig, module( NODE_ENV ) );
 };

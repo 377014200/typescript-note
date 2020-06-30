@@ -39,6 +39,7 @@ const columns = [
 
 export default class KeyWord extends React.Component {
    render() {
+       console.log( 234 )
       return <Table dataSource={ dataSource } columns={ columns } />;
    }
 }

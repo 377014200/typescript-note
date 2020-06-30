@@ -13,7 +13,7 @@ module.exports = function ( NODE_ENV ) {
             contentBase: resolve( __dirname, '../public' ),
             // index: resolve('./public/index.html'),
             port: '9090',
-            host: '0.0.0.0',
+            // host: '0.0.0.0',
             hot: true,
             // hotOnly: false,
             // 告诉开发服务器查看由开发服务器提供的文件。contentBase选项。默认情况下是禁用的。启用时，文件更改将触发重新加载整个页面。

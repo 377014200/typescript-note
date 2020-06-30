@@ -33,36 +33,40 @@
 <body>
 <div id="root"></div>
 <div id="modal-root"></div>
-</body>
-</html>
+
 <script>
 
-  window.addEventListener('message', e => {
+  window.addEventListener('message',  function  ( e ) {
 
     if (e.data.type === 'webpackErrors') {
 
       var htmlStr = '<div id="webpack-dev-server-client-overlay-div"><h2 style="color: #E36049">Failed to compile.</h2>'
       e.data.data.forEach(
-        item => {
+
+        function (item ) {
           htmlStr += '<ul style="white-space: pre-wrap">';
           item.split(/\n|\r\n/g).forEach(
-            errorStr => {
+            function (errorStr) {
               htmlStr += '<li>'
               errorStr.split(/\\r\\n|\r\n/g).forEach(
-                text => {
-
-                  htmlStr += '<div>' + text + '</div>'
-                }
+                  function (text) {
+                     htmlStr += '<div>' + text + '</div>'
+                  }
               )
               htmlStr += '</li>'
             }
           )
           htmlStr += '</ul>'
         }
+
       )
       htmlStr += '</div>'
-      document.getElementById('modal-root').innerHTML = htmlStr
-    }});
+      document.getElementById('modal-root').innerHTML = htmlStr;
+    }
+  })
 
 
 </script>
+</body>
+
+</html>
